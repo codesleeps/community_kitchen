@@ -24,7 +24,7 @@ const handleResponse = async (response) => {
 // Public endpoints (resident flow)
 
 export const getServiceDay = async () => {
-  const response = await fetch(`${API_URL}/service-day`, {
+  const response = await fetch(`${API_URL}/service-day/today`, {
     method: 'GET',
     headers: getHeaders(),
   });
@@ -36,7 +36,9 @@ export const getMenu = async () => {
     method: 'GET',
     headers: getHeaders(),
   });
-  return handleResponse(response);
+  const result = await handleResponse(response);
+  // Transform the response to match what the frontend expects
+  return { items: result.data };
 };
 
 export const postOrder = async (orderData) => {

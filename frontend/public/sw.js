@@ -41,11 +41,10 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   
-  // Skip cache for API calls
+  // Skip cache for API calls - always go to network
   if (request.url.includes('/api') || request.url.includes('localhost:3001')) {
     event.respondWith(
       fetch(request)
-        .catch(() => new Response('Network error', { status: 503 }))
     );
     return;
   }
